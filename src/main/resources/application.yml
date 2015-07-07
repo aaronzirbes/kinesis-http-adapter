@@ -1,0 +1,12 @@
+kinesis:
+  stream: firehose
+  region: us-east-1
+  app: zorg-kinesis-adapter
+  endpoint:
+    method: POST
+    url: http://localhost:8080/mobile-originated
+    mediaType: 'application/json; charset=utf-8'
+    discardStatuses:
+      - 400
+      - 408
+      - 422

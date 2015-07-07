@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "io.ratpack:ratpack-gradle:0.9.16"
+        
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.1"
+    }
+}
+
+plugins {
+    id "io.ratpack.ratpack-groovy" version "0.9.18"
+    id "com.jfrog.bintray" version "1.1"
+    id "com.github.johnrengelman.shadow" version "1.2.1"
+}
+
+apply plugin: "idea"
+
+repositories {
+    jcenter()
+}
+
+version = '1.0.0'
+group = 'org.zirbes'
+
+assemble.dependsOn shadowJar
+
+dependencies {
+
+    compile ratpack.dependency('jackson')
+    compile ratpack.dependency('rx')
+    compile ratpack.dependency('groovy')
+
+    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile 'com.amazonaws:amazon-kinesis-client:1.4.0'
+
+
+    // SpringLoaded enables runtime hot reloading.
+    // It is not part of the app runtime and is not shipped in the distribution.
+    springloaded "org.springframework:springloaded:1.2.3.RELEASE"
+
+    // Default SLF4J binding.  Note that this is a blocking implementation.
+    // See here for a non blocking appender http://logging.apache.org/log4j/2.x/manual/async.html
+    runtime 'org.slf4j:slf4j-simple:1.7.12'
+
+    testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+}
