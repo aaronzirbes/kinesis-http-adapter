@@ -17,12 +17,8 @@ class KinesisActionChain implements Action<Chain> {
     @Override
     void execute(Chain chain) throws Exception {
         Groovy.chain(chain) {
-            get('health') { HealthHandler healthHandler ->
-                context.insert(healthHandler)
-            }
-            get('version') { VersionHandler versionHandler ->
-                context.insert(versionHandler)
-            }
+            get('health', HealthHandler)
+            get('version', VersionHandler)
         }
     }
 }
